@@ -43,6 +43,7 @@ export const PostsProvider: React.FC<{ children: React.ReactNode }> = ({
         const formData = new FormData();
         formData.append("files", tweetImage);
 
+        // Ensure the request is authenticated
         const token = localStorage.getItem("jwt");
         if (token) {
           setAuthToken(token);
@@ -50,11 +51,6 @@ export const PostsProvider: React.FC<{ children: React.ReactNode }> = ({
 
         const uploadRes = await strapi.post("/upload", formData);
         tweetImageId = uploadRes.data[0].id;
-      }
-
-      const token = localStorage.getItem("jwt");
-      if (token) {
-        setAuthToken(token);
       }
 
       const postData = {
